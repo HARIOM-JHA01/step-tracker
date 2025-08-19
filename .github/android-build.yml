@@ -1,0 +1,63 @@
+name: Android Build
+
+on:
+    workflow_dispatch:
+        inputs:
+            profile:
+                description: "Choose build profile"
+                required: true
+                default: "dev"
+                type: choice
+                options:
+                    - dev
+                    - release
+                    - bundle
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Setup JDK
+              uses: actions/setup-java@v4
+              with:
+                  distribution: temurin
+                  java-version: 17
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 18
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Setup Android SDK
+              uses: android-actions/setup-android@v3
+
+            - name: Prebuild native project
+              run: npx expo prebuild --platform android
+
+            - name: Build APK/AAB
+              run: |
+                  cd android
+                  if [ "${{ github.event.inputs.profile }}" = "dev" ]; then
+                    ./gradlew assembleDebug
+                  elif [ "${{ github.event.inputs.profile }}" = "release" ]; then
+                    ./gradlew assembleRelease
+                  elif [ "${{ github.event.inputs.profile }}" = "bundle" ]; then
+                    ./gradlew bundleRelease
+                  fi
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: android-${{ github.event.inputs.profile }}
+                  path: |
+                      android/app/build/outputs/apk/debug/app-debug.apk
+                      android/app/build/outputs/apk/release/app-release.apk
+                      android/app/build/outputs/bundle/release/app-release.aab
+                  if-no-files-found: ignore
