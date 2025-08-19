@@ -64,6 +64,19 @@ A beautiful and simple step tracking app built with Expo and React Native. Track
 -   Achievements and badges
 -   Reminders and notifications
 
+## Work in Progress
+
+[ ] Step goal and progress bar
+[ ] Calories burned estimate
+[ ] Distance walked calculation
+[ ] Step history and trends
+[ ] Achievements and badges
+[ ] Reminders and notifications
+[ ] Customizable themes
+[ ] Share progress feature
+[ ] Integration with health apps
+[ ] User profile and settings
+
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
