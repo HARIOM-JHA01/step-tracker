@@ -1,50 +1,73 @@
-# Welcome to your Expo app 👋
+# Step Tracker
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A beautiful and simple step tracking app built with Expo and React Native. Track your daily steps, view your progress, and stay motivated to move more every day!
 
-## Get started
+## Features
 
-1. Install dependencies
+-   Live step count using device pedometer
+-   Steps taken in the last 24 hours
+-   Modern, clean home screen UI
+-   Motivational messages
+-   Works on Android devices with step counter support
 
-   ```bash
-   npm install
-   ```
+## Getting Started
 
-2. Start the app
+### Prerequisites
 
-   ```bash
-   npx expo start
-   ```
+-   [Node.js](https://nodejs.org/)
+-   [Expo CLI](https://docs.expo.dev/get-started/installation/)
+-   A physical Android device (step tracking does not work in emulators or Expo Go)
 
-In the output, you'll find options to open the app in a
+### Installation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Clone the repository:
+    ```bash
+    git clone <repo-url>
+    cd step-tracker
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Add the required Android permission in `app.json`:
+    ```json
+    "android": {
+      "permissions": ["ACTIVITY_RECOGNITION"]
+    }
+    ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Running the App
 
-## Get a fresh project
+1. Start the Expo development server:
+    ```bash
+    npx expo start
+    ```
+2. Build a development client or preview build for full sensor support:
+    ```bash
+    npx expo run:android
+    # or use EAS Build for a preview build
+    ```
+3. Install the app on your Android device and start walking!
 
-When you're ready, run:
+## Project Structure
 
-```bash
-npm run reset-project
-```
+-   `app/` - Main app source code
+-   `assets/` - App icons and images
+-   `app.json` - Expo app configuration
+-   `package.json` - Project dependencies and scripts
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Customization Ideas
 
-## Learn more
+-   Set daily step goals
+-   Show calories burned and distance walked
+-   View step history and trends
+-   Achievements and badges
+-   Reminders and notifications
 
-To learn more about developing your project with Expo, look at the following resources:
+## License
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This project is open source and available under the [MIT License](LICENSE).
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Made with ❤️ using [Expo](https://expo.dev/) and [React Native](https://reactnative.dev/).
