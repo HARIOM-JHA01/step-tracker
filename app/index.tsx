@@ -7,6 +7,7 @@ export default function Index() {
         useState("checking");
     const [pastStepCount, setPastStepCount] = useState(0);
     const [currentStepCount, setCurrentStepCount] = useState(0);
+    const [dailyStepGoal] = useState(10000);
 
     useEffect(() => {
         let subscription: any = null;
@@ -42,6 +43,11 @@ export default function Index() {
         };
     }, []);
 
+    // Calculate progress towards daily goal using today's total steps
+    const totalSteps = pastStepCount + currentStepCount;
+    const progressPercentage = Math.min((totalSteps / dailyStepGoal) * 100, 100);
+    const remainingSteps = Math.max(dailyStepGoal - totalSteps, 0);
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -60,15 +66,39 @@ export default function Index() {
                         ? "Available"
                         : "Not Available"}
                 </Text>
+                
+                <Text style={styles.label}>Daily Step Goal</Text>
+                <Text style={styles.goalText}>{dailyStepGoal.toLocaleString()}</Text>
+                
+                <Text style={styles.label}>Today&apos;s Progress</Text>
+                <View style={styles.progressContainer}>
+                    <View style={styles.progressBarBackground}>
+                        <View 
+                            style={[
+                                styles.progressBarFill,
+                                { width: `${progressPercentage}%` }
+                            ]}
+                        />
+                    </View>
+                    <Text style={styles.progressText}>
+                        {totalSteps.toLocaleString()} / {dailyStepGoal.toLocaleString()}
+                    </Text>
+                </View>
+                <Text style={styles.progressPercentage}>
+                    {progressPercentage.toFixed(1)}% Complete
+                </Text>
+                
                 <Text style={styles.label}>Steps in Last 24 Hours</Text>
                 <Text style={styles.steps}>{pastStepCount}</Text>
                 <Text style={styles.label}>Live Step Count</Text>
                 <Text style={styles.liveSteps}>{currentStepCount}</Text>
             </View>
             <Text style={styles.motivation}>
-                {currentStepCount > 0 || pastStepCount > 0
-                    ? "Keep moving! Every step counts."
-                    : "Start walking to see your steps!"}
+                {totalSteps >= dailyStepGoal
+                    ? "🎉 Congratulations! You&apos;ve reached your daily goal!"
+                    : totalSteps > 0
+                    ? `Keep going! Only ${remainingSteps.toLocaleString()} steps to reach your goal.`
+                    : "Start walking to begin your journey towards your daily goal!"}
             </Text>
         </View>
     );
@@ -138,5 +168,39 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         textAlign: "center",
         marginTop: 10,
+    },
+    goalText: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#2e5aac",
+        marginVertical: 4,
+    },
+    progressContainer: {
+        marginVertical: 8,
+    },
+    progressBarBackground: {
+        height: 12,
+        backgroundColor: "#e0e0e0",
+        borderRadius: 6,
+        overflow: "hidden",
+        marginBottom: 8,
+    },
+    progressBarFill: {
+        height: "100%",
+        backgroundColor: "#4caf50",
+        borderRadius: 6,
+    },
+    progressText: {
+        fontSize: 16,
+        fontWeight: "600",
+        color: "#333",
+        textAlign: "center",
+    },
+    progressPercentage: {
+        fontSize: 14,
+        color: "#4caf50",
+        fontWeight: "600",
+        textAlign: "center",
+        marginTop: 4,
     },
 });

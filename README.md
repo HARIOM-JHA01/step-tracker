@@ -6,8 +6,10 @@ A beautiful and simple step tracking app built with Expo and React Native. Track
 
 -   Live step count using device pedometer
 -   Steps taken in the last 24 hours
+-   Daily step goal tracking (default: 10,000 steps)
+-   Visual progress bar showing goal completion
+-   Goal-oriented motivational messages
 -   Modern, clean home screen UI
--   Motivational messages
 -   Works on Android devices with step counter support
 
 ## Getting Started
@@ -66,7 +68,7 @@ A beautiful and simple step tracking app built with Expo and React Native. Track
 
 ## Work in Progress
 
--   [ ] Step goal and progress bar
+-   [x] Step goal and progress bar
 -   [ ] Calories burned estimate
 -   [ ] Distance walked calculation
 -   [ ] Step history and trends
